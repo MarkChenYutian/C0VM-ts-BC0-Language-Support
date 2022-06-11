@@ -1,26 +1,21 @@
-@top Program { expression* }
+@top Program { MagicNumber expression* }
 
-@skip { space | LineComment }
+@skip { space }
 
 expression {
-  Identifier |
-  String |
-  Boolean |
-  Application { "(" expression* ")" }
+  Byte |
+  FuncHeader |
+  JMPLabel | 
+  LineComment
 }
 
 @tokens {
-  Identifier { $[a-zA-Z_\-0-9]+ }
-
-  String { '"' (!["\\] | "\\" _)* '"' }
-
-  Boolean { "#t" | "#f" }
-
-  LineComment { ";" ![\n]* }
-
+  MagicNumber { "C0 C0 FF EE" }
+  Byte { $[A-Fa-f0-9]$[A-Fa-f0-9] }
+  FuncHeader { "#<" $[A-Za-z_\-0-9]+ ">" }
+  JMPLabel { "# <" $[A-Fa-f0-9]+ ":" $[A-Za-z_\-0-9] ">" }
+  LineComment { "# " ![<\n]![\n]* }
   space { $[ \t\n\r]+ }
-
-  "(" ")"
 }
 
 @detectDelim
