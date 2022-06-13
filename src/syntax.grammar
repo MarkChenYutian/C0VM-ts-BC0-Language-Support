@@ -1,21 +1,31 @@
-@top Program { MagicNumber expression* }
+@top Program { Expression* }
 
 @skip { space }
 
-expression {
-  Byte |
-  FuncHeader |
-  JMPLabel | 
-  LineComment
+Expression {
+  Line
+  | BlockHeader
+  | BlockEnder
+  | Function
 }
+
+Function {
+  FuncHeader Line* BlockEnder
+}
+
+Line {
+  Byte+ Comment+ 
+}
+
+FuncHeader { "#<" Identifier ">" }
+
+BlockHeader { @extend <Comment, "# int pool" | "# string pool" | "# function_pool" | "# native pool"> }
 
 @tokens {
-  MagicNumber { "C0 C0 FF EE" }
   Byte { $[A-Fa-f0-9]$[A-Fa-f0-9] }
-  FuncHeader { "#<" $[A-Za-z_\-0-9]+ ">" }
-  JMPLabel { "# <" $[A-Fa-f0-9]+ ":" $[A-Za-z_\-0-9] ">" }
-  LineComment { "# " ![<\n]![\n]* }
-  space { $[ \t\n\r]+ }
+  Identifier { $[A-Za-z_\-0-9]+ }
+  Comment { "# " ![\n]* }
+  space { $[ \n\t] }
+  BlockEnder { "\n\n" }
 }
 
-@detectDelim

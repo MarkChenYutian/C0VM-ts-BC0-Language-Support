@@ -5,17 +5,22 @@ import {styleTags, tags as t} from "@lezer/highlight"
 export const BC0Language = LRLanguage.define({
   parser: parser.configure({
     props: [
+      foldNodeProp.add({
+        Function: foldInside,
+      }
+      ),
       styleTags({
-        Byte: t.atom,
-        LineComment: t.comment,
+        Byte: t.integer,
+        Comment: t.comment,
         FuncHeader: t.className,
-        JMPLabel: t.moduleKeyword
+        BlockHeader: t.className
       })
     ]
   }),
   languageData: {
     commentTokens: {line: "# "}
-  }
+  },
+  
 })
 
 export function BC0() {

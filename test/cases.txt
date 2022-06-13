@@ -1,23 +1,54 @@
-# Number
+# Normal Line
 
-C0 C0 FF EE       # magic number
+C0 C0 FF EE # test
 
-# function_pool
+==>
+
+Program( 
+  Expression(
+    Line(Byte, Byte, Byte, Byte, Comment)
+  )
+)
+
+# Function Header
 
 #<main>
-00                # number of arguments = 0
-04                # number of local variables = 4
-00 46             # code length = 70 bytes
+A0 # Test
+
+A0 #something
 
 ==>
 
 Program(
-  MagicNumber, LineComment,
-  LineComment,
-  FuncHeader,
-  Byte, LineComment,
-  Byte, LineComment,
-  Byte Byte, LineComment
-
+  Expression(
+    FuncHeader(Identifier)
+  )
 )
 
+# Block Header
+
+# int pool
+
+==>
+
+Program(
+  Expression(BlockHeader)
+)
+
+# Function Block
+
+#<main>
+0A # test
+0B 0C # test
+
+#<f>
+
+==>
+
+Program(
+  Expression(FuncHeader(Identifier)),
+  Expression(Line(Byte, Comment)),
+  Expression(Line(Byte, Byte, Comment)),
+  Expression(BlockEnder),
+  Expression(FuncHeader(Identifier))
+)
