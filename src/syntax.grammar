@@ -14,17 +14,18 @@ Function {
 }
 
 Line {
-  Byte+ Comment+ 
+  Byte+ Instruction Comment*
 }
 
 FuncHeader { "#<" Identifier ">" }
 
-BlockHeader { @extend <Comment, "# int pool" | "# string pool" | "# function_pool" | "# native pool"> }
+BlockHeader { @specialize <Comment, "# int pool" | "# string pool" | "# function_pool" | "# native pool"> }
 
 @tokens {
   Byte { $[A-Fa-f0-9]$[A-Fa-f0-9] }
   Identifier { $[A-Za-z_\-0-9]+ }
   Comment { "# " ![\n]* }
+  Instruction { "# " ![\#\n]+ }
   space { $[ \n\t] }
   BlockEnder { "\n\n" }
 }

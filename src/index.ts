@@ -12,8 +12,11 @@ export const BC0Language = LRLanguage.define({
       styleTags({
         Byte: t.integer,
         Comment: t.comment,
-        FuncHeader: t.className,
-        BlockHeader: t.className
+        FuncHeader: t.definitionKeyword,
+        Identifier: t.definitionKeyword,
+        BlockHeader: t.definitionKeyword,
+        Commands: t.className,
+        Instruction: t.className
       })
     ]
   }),
