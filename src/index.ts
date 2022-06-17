@@ -1,6 +1,6 @@
 import {parser} from "./syntax.grammar"
-import {LRLanguage, LanguageSupport, indentNodeProp, foldNodeProp, foldInside, delimitedIndent} from "@codemirror/language"
-import {styleTags, tags as t} from "@lezer/highlight"
+import {LRLanguage, LanguageSupport, foldNodeProp, foldInside} from "@codemirror/language"
+import {styleTags, tags} from "@lezer/highlight"
 
 export const BC0Language = LRLanguage.define({
   parser: parser.configure({
@@ -10,13 +10,13 @@ export const BC0Language = LRLanguage.define({
       }
       ),
       styleTags({
-        Byte: t.integer,
-        Comment: t.comment,
-        FuncHeader: t.definitionKeyword,
-        Identifier: t.definitionKeyword,
-        BlockHeader: t.definitionKeyword,
-        Commands: t.className,
-        Instruction: t.className
+        Byte: tags.integer,
+        Comment: tags.comment,
+        FuncHeader: tags.definitionKeyword,
+        Identifier: tags.definitionKeyword,
+        BlockHeader: tags.definitionKeyword,
+        Commands: tags.className,
+        Instruction: tags.className
       })
     ]
   }),

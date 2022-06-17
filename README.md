@@ -1,21 +1,35 @@
-# CodeMirror 6 language package template
+# BC0 Language Support for CodeMirror 6
 
-This is an BC0 repository containing a minimal [CodeMirror](https://codemirror.net/6/) language support package. The idea is to clone it, rename it, and edit it to create support for a new language.
+This repository contains the  BC0 (C0 Bytecode) Language Support Extension for CodeMirror 6.
 
-Things you'll need to do (see the [language support BC0](https://codemirror.net/6/BC0s/lang-package/) for a more detailed tutorial):
+## File Structure
 
- * `git grep BC0` and replace all instances with your language name.
+The file `src/index.ts` defines the properties of **language support extension**.
 
- * Rewrite the grammar in `src/syntax.grammar` to cover your language. See the [Lezer system guide](https://lezer.codemirror.net/docs/guide/#writing-a-grammar) for information on this file format.
+The file `src/syntax.grammar` defines a parser-generator configuration for the BC0 language that is used to generate a parser that can parse the BC0 language.
 
- * Adjust the metadata in `src/index.ts` to work with your new grammar.
+## Build
 
- * Adjust the grammar tests in `test/cases.txt`.
+To build the extension, use
 
- * Build (`npm run prepare`) and test (`npm test`).
+```bash
+npm run prepare
+```
 
- * Rewrite this readme file.
+The extension built will be placed in `/dist` folder. One can import `BC0Language` from the built result and import into the editor using `language` from `@codemirror/language`, as shown below:
 
- * Optionally add a license.
+```typescript
+import { language } from "@codemirror/language";
+import { BC0Language } from "./syntax/bc0";
 
- * Publish. If you want to use a `@codemirror/lang-...` package name, open an [issue](https://github.com/codemirror/codemirror.next/issues) to ask for npm publish rights for that name.
+export function editor_init() {
+    globalThis.EDITOR_VIEW = new EditorView({
+        parent: document.getElementById(globalThis.UI_INPUT_ID),
+        extensions: [
+            language.of(BC0Language)
+        ]
+    });
+    console.log(`C0 Editor Initialized.`);
+}
+
+```
