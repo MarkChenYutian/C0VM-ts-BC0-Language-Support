@@ -2,6 +2,10 @@
 
 This repository contains the  BC0 (C0 Bytecode) Language Support Extension for CodeMirror 6.
 
+## Demonstration
+<img width="504" alt="image" src="https://user-images.githubusercontent.com/47029019/174206806-eca0732c-84b9-4c05-b2ba-1d5a9f52f70a.png">
+
+
 ## File Structure
 
 The file `src/index.ts` defines the properties of **language support extension**.
