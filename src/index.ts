@@ -10,13 +10,13 @@ export const BC0Language = LRLanguage.define({
       }
       ),
       styleTags({
-        Byte: tags.integer,
-        Comment: tags.comment,
+        Byte: tags.content,
+        Comment: tags.className,
         FuncHeader: tags.definitionKeyword,
         Identifier: tags.definitionKeyword,
         BlockHeader: tags.definitionKeyword,
         Commands: tags.className,
-        Instruction: tags.className
+        Instruction: tags.comment
       })
     ]
   }),
