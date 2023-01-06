@@ -10,11 +10,15 @@ Expression {
 }
 
 Function {
-  FuncHeader Line* BlockEnder
+  FuncHeader (Line | Jump)* BlockEnder
 }
 
 Line {
-  Byte+ Instruction Comment*
+  Byte+ Instruction Comment Source
+}
+
+Jump {
+  "# <" Identifier ":" Identifier ">"
 }
 
 FuncHeader { "#<" Identifier ">" }
@@ -24,7 +28,8 @@ BlockHeader { @specialize <Comment, "# int pool" | "# string pool" | "# function
 @tokens {
   Byte { $[A-Fa-f0-9]$[A-Fa-f0-9] }
   Identifier { $[A-Za-z_\-0-9]+ }
-  Comment { "# " ![\n]* }
+  Comment { "# " ![\#\n]* }
+  Source { "# " ![\#\n]* }
   Instruction { "# " ![\#\n]+ }
   space { $[ \n\t] }
   BlockEnder { "\n\n" }
